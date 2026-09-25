@@ -1,0 +1,5 @@
+bitkub==2.0.0
+bitkub-v2==3.2.1
+fear-and-greed-crypto==0.1.0
+python-dotenv==1.0.1
+requests==2.32.3
