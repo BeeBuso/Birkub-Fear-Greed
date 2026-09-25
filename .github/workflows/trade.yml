@@ -2,9 +2,8 @@ name: Crypto Fear & Greed Trading Bot
 
 on:
   schedule:
-    # รันทุกวันเวลา 00:05 UTC (07:05 น. ไทย)
     - cron: "5 0 * * *"
-  workflow_dispatch:   # เปิดให้กดรันเองได้จาก GitHub UI
+  workflow_dispatch:
 
 jobs:
   trade:
@@ -13,6 +12,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      # ดึง state จาก run ครั้งก่อน (ถ้ามี)
+      - name: Download previous state
+        uses: actions/download-artifact@v4
+        with:
+          name: trade-state
+          path: .
+        continue-on-error: true   # อนุญาตให้ error ได้ถ้ายังไม่มี artifact (run แรก)
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -31,6 +38,7 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python main.py
 
+      # อัปโหลด state เก็บไว้ให้ run ครั้งถัดไปใช้
       - name: Upload state artifact
         if: always()
         uses: actions/upload-artifact@v4
