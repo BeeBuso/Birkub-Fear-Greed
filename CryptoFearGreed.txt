@@ -1,0 +1,7 @@
+Crypto Fear & Greed 
+bitkub
+api >  2eaca6fcfa190a4fdc8da1d321e53689b2257207c704ca8e9fb1959f4ce11e07
+API Secret > fe7b873bfce249ff9c4023020322c357569620ba178747d7ac976b1b2a7d35a2PrP3n0K4IqtwxKB3jpvBxlMsddHm
+
+discord
+> https://discord.com/api/webhooks/1552953911206346764/L08tJCKWwb5ayNlMiMuFl8eDB2hloNCF5sRChrUEzyt2X0ws6IvpzuOnlvlqn0w1dXVw
