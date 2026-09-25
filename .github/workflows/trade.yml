@@ -1,0 +1,40 @@
+name: Crypto Fear & Greed Trading Bot
+
+on:
+  schedule:
+    # รันทุกวันเวลา 00:05 UTC (07:05 น. ไทย)
+    - cron: "5 0 * * *"
+  workflow_dispatch:   # เปิดให้กดรันเองได้จาก GitHub UI
+
+jobs:
+  trade:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run trading bot
+        env:
+          BITKUB_API_KEY: ${{ secrets.BITKUB_API_KEY }}
+          BITKUB_API_SECRET: ${{ secrets.BITKUB_API_SECRET }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python main.py
+
+      - name: Upload state artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trade-state
+          path: trade_state.json
+          if-no-files-found: ignore
